@@ -10,6 +10,10 @@ import (
 )
 
 var db *gorm.DB
+var dbUsername string
+var dbPassword string
+var dbName string
+var dbHost string
 
 func init() {
 	err := godotenv.Load()
@@ -17,22 +21,22 @@ func init() {
 		fmt.Println(err)
 	}
 
-	dbUsername := os.Getenv("db_user")
-	dbPassword := os.Getenv("db_pass")
-	dbName := os.Getenv("db_name")
-	dbHost := os.Getenv("db_host")
+	dbUsername = os.Getenv("db_user")
+	dbPassword = os.Getenv("db_pass")
+	dbName = os.Getenv("db_name")
+	dbHost = os.Getenv("db_host")
 
-	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, username, dbName, password) //Build connection string
+	dbURI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", dbHost, dbUsername, dbName, dbPassword) //Build connection string
 	fmt.Println(dbURI)
 
-	conn, err := gorm.Open(dbURI)
+	conn, err := gorm.Open("postgres", dbURI)
 	if err != nil {
 		fmt.Println(err)
 	}
-	conn.Debug.AutoMigrate(&Cart, &Order)
+	conn.AutoMigrate(&Cart{}, &Order{})
+	db = conn
 }
 
-"GetDB to get the postgres database connection"
 func GetDb() *gorm.DB {
 	return db
 }

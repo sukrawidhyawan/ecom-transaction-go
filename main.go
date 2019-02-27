@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"./controllers"
+	"github.com/tripLo-team/ecom-transaction-go/controllers"
 
 	"github.com/gorilla/mux"
 )

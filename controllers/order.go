@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"../utils"
+	"github.com/tripLo-team/ecom-transaction-go/utils"
 	"github.com/gorilla/mux"
 	"github.com/tripLo-team/ecom-transaction-go/models"
 )

@@ -44,7 +44,23 @@ func CartGetItem(w http.ResponseWriter, r *http.Request) {
 }
 
 func CartPatchItem(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "CartPatchItem handler")
+	vars := mux.Vars(r)
+	userID, _ := strconv.Atoi(vars["userID"])
+	productID, _ := strconv.Atoi(vars["productID"])
+
+	cart := &models.Cart{}
+	err := json.NewDecoder(r.Body).Decode(cart)
+
+	if err != nil {
+		utils.Respond(w, utils.Message(500, "Error while decoding request body"))
+		return
+	}
+	cart.UserID = userID
+	cart.ProductID = productID
+	data := cart.Update()
+	resp := utils.Message(200, "success")
+	resp["data"] = data
+	utils.Respond(w, resp)
 }
 
 func CartDeleteItem(w http.ResponseWriter, r *http.Request) {

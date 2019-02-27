@@ -46,3 +46,13 @@ func (cart *Cart) Create() *Cart {
 
 	return cart
 }
+
+func (cart *Cart) Update() *Cart {
+	err := GetDb().Save(cart)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
+
+	return cart
+}

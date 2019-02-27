@@ -17,14 +17,15 @@ func main() {
 	router.HandleFunc("/api/v1/carts", controllers.CartListItems).Methods("GET")
 	router.HandleFunc("/api/v1/carts", controllers.CartAddItem).Methods("POST")
 	router.HandleFunc("/api/v1/carts/{userID}/{productID}", controllers.CartGetItem).Methods("GET")
-	router.HandleFunc("/api/v1/carts/{id}", controllers.CartPatchItem).Methods("PATCH")
-	router.HandleFunc("/api/v1/carts/{id}", controllers.CartDeleteItem).Methods("DELETE")
+	router.HandleFunc("/api/v1/carts/{userID}/{productID}", controllers.CartPatchItem).Methods("PATCH")
+	router.HandleFunc("/api/v1/carts/{userID}/{productID}", controllers.CartDeleteItem).Methods("DELETE")
 
-	// router.HandleFunc("/api/v1/orders", controllers.CartListItems).Methods("GET")
-	// router.HandleFunc("/api/v1/orders", controllers.CartAddItem).Methods("POST")
-	// router.HandleFunc("/api/v1/orders/:id", controllers.CartGetItem).Methods("GET")
-	// router.HandleFunc("/api/v1/orders/:id", controllers.CartPatchItem).Methods("PATCH")
-	// router.HandleFunc("/api/v1/orders/:id", controllers.CartDeleteItem).Methods("DELETE")
+	router.HandleFunc("/api/v1/orders", controllers.OrderListItems).Methods("GET")
+	router.HandleFunc("/api/v1/orders", controllers.OrderAddItem).Methods("POST")
+	router.HandleFunc("/api/v1/orders/user/{userID}", controllers.OrderGetUserItems).Methods("GET")
+	router.HandleFunc("/api/v1/orders/product/{productID}", controllers.OrderGetProductItems).Methods("GET")
+	// router.HandleFunc("/api/v1/orders/:id", controllers.OrderPatchItem).Methods("PATCH")
+	// router.HandleFunc("/api/v1/orders/:id", controllers.OrderDeleteItem).Methods("DELETE")
 
 	port := os.Getenv("PORT")
 	if port == "" {
